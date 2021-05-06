@@ -36,8 +36,8 @@ class Coordinate {
         const imageScale = realWidth / width;
         const realHeight = height * imageScale;
         */
-        x = 1000 + (x * 1.01) - 18;
-        y = 850 + (y * 1.015) + 5;
+        x = 1000 + (x * 1.01) - 17.5;
+        y = 850 + (y * 1.015) - 46;
 
         //x = x * -1 * imageScale * ratio + realWidth;
         //y = y * -1 * imageScale * ratio + realHeight;
