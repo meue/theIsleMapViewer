@@ -8,22 +8,23 @@ class Map {
 
     init() {
         this.coords = [];
-        //window.addEventListener("resize", () => this.update();
         document.getElementById("coordsButton").addEventListener("click", () => this.addCoordinate());
     }
 
     initZoom() {
         this.scale = 1;
-        this.x = 0;
-        this.y = 0;
-        this.dragging = false;
+        this.minScale = 1;
+        this.maxScale = 3;
+        this.position = { x: 0, y: 0 };
+        this.intermediatePosition = { x: 0, y: 0 };
         this.dragStart = { x: 0, y: 0 };
+        this.dragging = false;
         const mapScroller = document.getElementById("mapScroller");
         mapScroller.addEventListener("wheel", (event) => this.zoom(event));
         mapScroller.addEventListener('mousedown', (event) => this.startDrag(event));
         document.addEventListener('mousemove', (event) => this.drag(event));
         document.addEventListener('mouseup', (event) => this.endDrag(event));
-        this.updateZoom();
+        this.update();
     }
 
     addTestCoordinates() {
@@ -45,13 +46,6 @@ class Map {
         this.coords.push(new Coordinate(x, y, color));
     }
 
-    /*update() {
-        for (let i = 0; i < this.coords.length; i++) {
-            const coordinate = this.coords[i];
-            coordinate.update();
-        }
-    }*/
-
     zoom(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -60,29 +54,38 @@ class Map {
         } else {
             this.scale *= 1.15;
         }
+
+        if (this.scale > this.maxScale) {
+            this.scale = this.maxScale;
+        }
+        if (this.scale < this.minScale) {
+            this.scale = this.minScale;
+        }
         this.activateTransition();
-        this.updateZoom();
+        this.update();
     }
 
     startDrag(event) {
         event.preventDefault();
         event.stopPropagation();
         this.dragging = true;
-        this.dragStart.x = event.clientX - this.x;
-        this.dragStart.y = event.clientY - this.y;
-        this.updateZoom();
+        this.dragStart.x = event.clientX - this.position.x;
+        this.dragStart.y = event.clientY - this.position.y;
+        this.update();
     }
 
     drag(event) {
         if (!this.dragging) {
             return;
         }
-        const deltaX = event.clientX - this.dragStart.x;
-        const deltaY = event.clientY - this.dragStart.y;
-        this.x = deltaX;
-        this.y = deltaY;
+
+        let deltaX = event.clientX - this.dragStart.x;
+        let deltaY = event.clientY - this.dragStart.y;
+
+        this.intermediatePosition.x = deltaX;
+        this.intermediatePosition.y = deltaY;
         this.deactiveTransition();
-        this.updateZoom();
+        this.updateIntermediateDrag();
     }
 
     activateTransition() {
@@ -97,12 +100,42 @@ class Map {
 
     endDrag(event) {
         this.dragging = false;
-        this.updateZoom();
+        this.position.x = this.intermediatePosition.x;
+        this.position.y = this.intermediatePosition.y;
+        this.update();
     }
 
-    updateZoom() {
+    update() {
+        this.addPositionConstraints(this.position);
         const mapElement = document.getElementById("map");
-        mapElement.style.transform = "scale(" + this.scale + ") translate(" + this.x + "px, " + this.y + "px)";
+        mapElement.style.transform = "scale(" + this.scale + ") translate(" + this.position.x + "px, " + this.position.y + "px)";
+    }
+
+    updateIntermediateDrag() {
+        this.addPositionConstraints(this.intermediatePosition);
+        const mapElement = document.getElementById("map");
+        mapElement.style.transform = "scale(" + this.scale + ") translate(" + this.intermediatePosition.x + "px, " + this.intermediatePosition.y + "px)";
+    }
+
+    addPositionConstraints(position) {
+
+        const minX = (this.scale - 1) * -500 / this.scale;
+        const maxX = (this.scale - 1) * 500 / this.scale
+        const minY = (this.scale - 1) * -411 / this.scale;
+        const maxY = (this.scale - 1) * 411 / this.scale
+
+        if (position.x < minX) {
+            position.x = minX;
+        }
+        if (position.x > maxX) {
+            position.x = maxX;
+        }
+        if (position.y < minY) {
+            position.y = minY;
+        }
+        if (position.y > maxY) {
+            position.y = maxY;
+        }
     }
 }
 

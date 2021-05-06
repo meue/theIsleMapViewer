@@ -25,22 +25,10 @@ class Coordinate {
     translateCoords() {
         let x = this.x;
         let y = this.y;
-        /*const offsetX = 10;
-        const offsetY = 10;
-        const width = 2357;
-        const height = 1940;
-        const ratio = 2357 / 1000;
-        const map = document.getElementById("map");
-        const boundingBox = map.getBoundingClientRect();
-        const realWidth = boundingBox.width;
-        const imageScale = realWidth / width;
-        const realHeight = height * imageScale;
-        */
+
         x = 1000 + (x * 1.01) - 17.5;
         y = 850 + (y * 1.015) - 46;
 
-        //x = x * -1 * imageScale * ratio + realWidth;
-        //y = y * -1 * imageScale * ratio + realHeight;
         return { x: x, y: y };
     }
 
