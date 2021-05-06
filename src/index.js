@@ -1,3 +1,4 @@
+require("./index.html");
 const Map = require("./Map");
 
 window.addEventListener("load", onLoad);

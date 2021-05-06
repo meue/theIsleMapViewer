@@ -65,6 +65,8 @@ class Map {
     }
 
     startDrag(event) {
+        event.preventDefault();
+        event.stopPropagation();
         this.dragging = true;
         this.dragStart.x = event.clientX - this.x;
         this.dragStart.y = event.clientY - this.y;

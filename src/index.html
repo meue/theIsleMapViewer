@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+    <script src="bundle.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            font-family: sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .coordinate {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 10px;
+            width: 10px;
+            border: 2px solid white;
+            border-radius: 100%;
+        }
+
+        .mapScroller {
+            width: 1000px;
+            height: 823px;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        .map {
+            width: 100%;
+            height: 100%;
+            background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/22af9ce0-ff95-4305-9b40-6c047e73e79c/de0a4qy-97bf9f9d-3a27-494f-b4f9-55d950dacb69.jpg/v1/fill/w_985,h_811,q_70,strp/isla_spiro_map__the_isle_evrima__by_skudde_de0a4qy-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA1NCIsInBhdGgiOiJcL2ZcLzIyYWY5Y2UwLWZmOTUtNDMwNS05YjQwLTZjMDQ3ZTczZTc5Y1wvZGUwYTRxeS05N2JmOWY5ZC0zYTI3LTQ5NGYtYjRmOS01NWQ5NTBkYWNiNjkuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.qtY7VBN1iP7m4r-WjNDa6OeQh_di-hh_rjM0mtMqjA0");
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+        }
+
+        .controls {
+            height: 50px;
+            width: 1000px;
+            padding: 16px;
+            background-color: lightblue;
+        }
+
+        .controls input {
+            height: 20px;
+        }
+
+        .controls input[type=color] {}
+
+        .forkme {
+            position: absolute;
+            top: 0;
+            left: 851px;
+            z-index: 1;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+
+    <a class="forkme" href="https://github.com/meue/theIsleMapViewer"><img loading="lazy" width="149" height="149"
+            src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=149%2C149"
+            class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    <div class="controls">
+        Koordinaten hier einfügen:
+        <input id="coordsCoords" />
+        <input id="coordsColor" type="color" />
+        <input id="coordsButton" type="button" value="hinzufügen" />
+
+    </div>
+    <div id="mapScroller" class="mapScroller">
+        <div id="map" class="map"></div>
+
+    </div>
+
+</body>
+
+</html>
