@@ -1,9 +1,12 @@
 const Coordinate = require("./Coordinate");
+const Marker = require("./Marker");
 
 class Map {
     constructor() {
         this.init();
+        this.initMarkers();
         this.initZoom();
+        this.updateMarkers();
     }
 
     init() {
@@ -49,6 +52,7 @@ class Map {
     zoom(event) {
         event.preventDefault();
         event.stopPropagation();
+        this.hideTutorial();
         if (event.deltaY > 0) {
             this.scale *= 0.85;
         } else {
@@ -68,6 +72,7 @@ class Map {
     startDrag(event) {
         event.preventDefault();
         event.stopPropagation();
+        this.hideTutorial();
         this.dragging = true;
         this.dragStart.x = event.clientX - this.position.x;
         this.dragStart.y = event.clientY - this.position.y;
@@ -91,11 +96,17 @@ class Map {
     activateTransition() {
         const mapElement = document.getElementById("map");
         mapElement.style.transition = "transform .2s";
+        for (let i = 0; i < this.markers.length; i++) {
+            this.markers[i].activateTransition();
+        }
     }
 
     deactiveTransition() {
         const mapElement = document.getElementById("map");
-        mapElement.style.transition = "none .2s";
+        mapElement.style.transition = "none";
+        for (let i = 0; i < this.markers.length; i++) {
+            this.markers[i].deactivateTransition();
+        }
     }
 
     endDrag(event) {
@@ -118,7 +129,6 @@ class Map {
     }
 
     addPositionConstraints(position) {
-
         const minX = (this.scale - 1) * -500 / this.scale;
         const maxX = (this.scale - 1) * 500 / this.scale
         const minY = (this.scale - 1) * -411 / this.scale;
@@ -136,7 +146,41 @@ class Map {
         if (position.y > maxY) {
             position.y = maxY;
         }
+
+        this.updateMarkers(position);
     }
+
+    initMarkers() {
+        const mapHeight = 823;
+        const mapWidth = 1000;
+        this.markers = [];
+
+        for (let i = 0; i < mapHeight; i += 100) {
+            this.markers.push(new Marker(i, true, document.getElementById("mapScroller"), mapHeight, mapWidth));
+        }
+        for (let i = 0; i < mapWidth; i += 100) {
+            this.markers.push(new Marker(i, false, document.getElementById("mapScroller"), mapHeight, mapWidth));
+        }
+    }
+
+    updateMarkers(position) {
+        if (!position) {
+            position = this.position;
+        }
+        for (let i = 0; i < this.markers.length; i++) {
+            this.markers[i].update(this.scale, position);
+        }
+    }
+
+    hideTutorial() {
+        const tutorial = document.getElementById("tutorial");
+        if (tutorial) {
+            tutorial.remove();
+        }
+
+    }
+
+
 }
 
 module.exports = Map;

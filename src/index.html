@@ -38,7 +38,9 @@
         .map {
             width: 100%;
             height: 100%;
-            background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/22af9ce0-ff95-4305-9b40-6c047e73e79c/de0a4qy-97bf9f9d-3a27-494f-b4f9-55d950dacb69.jpg/v1/fill/w_985,h_811,q_70,strp/isla_spiro_map__the_isle_evrima__by_skudde_de0a4qy-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA1NCIsInBhdGgiOiJcL2ZcLzIyYWY5Y2UwLWZmOTUtNDMwNS05YjQwLTZjMDQ3ZTczZTc5Y1wvZGUwYTRxeS05N2JmOWY5ZC0zYTI3LTQ5NGYtYjRmOS01NWQ5NTBkYWNiNjkuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.qtY7VBN1iP7m4r-WjNDa6OeQh_di-hh_rjM0mtMqjA0");
+            background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/22af9ce0-ff95-4305-9b40-6c047e73e79c/de0a4qy-97bf9f9d-3a27-494f-b4f9-55d950dacb69.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzIyYWY5Y2UwLWZmOTUtNDMwNS05YjQwLTZjMDQ3ZTczZTc5Y1wvZGUwYTRxeS05N2JmOWY5ZC0zYTI3LTQ5NGYtYjRmOS01NWQ5NTBkYWNiNjkuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Q2YQVf1ohva3_EFOhb76PwDTe2UIEdFiXnGahpFZK0M");
+
+            /*https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/22af9ce0-ff95-4305-9b40-6c047e73e79c/de0a4qy-97bf9f9d-3a27-494f-b4f9-55d950dacb69.jpg/v1/fill/w_985,h_811,q_70,strp/isla_spiro_map__the_isle_evrima__by_skudde_de0a4qy-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA1NCIsInBhdGgiOiJcL2ZcLzIyYWY5Y2UwLWZmOTUtNDMwNS05YjQwLTZjMDQ3ZTczZTc5Y1wvZGUwYTRxeS05N2JmOWY5ZC0zYTI3LTQ5NGYtYjRmOS01NWQ5NTBkYWNiNjkuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.qtY7VBN1iP7m4r-WjNDa6OeQh_di-hh_rjM0mtMqjA0*/
             background-size: 100% auto;
             background-repeat: no-repeat;
         }
@@ -60,6 +62,30 @@
             left: 851px;
             z-index: 1;
         }
+
+        .coordsMarker {
+            position: absolute;
+            color: black;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 6px;
+            font-size: 13px;
+            transition: all .2s;
+            font-weight: 800;
+            width: 42px;
+        }
+
+        .tutorial {
+            position: absolute;
+            top: 400px;
+            left: 400px;
+            width: 250px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.75);
+            color: black;
+            font-weight: 800;
+            text-align: center;
+            padding: 16px;
+        }
     </style>
 
 
@@ -75,12 +101,14 @@
         Insert your coordinates here:
         <input id="coordsCoords" placeholder="Ctrl+V here" />
         <input id="coordsColor" type="color" />
-        <input id="coordsButton" type="button" value="hinzufügen" />
+        <input id="coordsButton" type="button" value="Add" />
 
     </div>
     <div id="mapScroller" class="mapScroller">
         <div id="map" class="map"></div>
-
+        <div id="tutorial" class="tutorial">
+            Scroll or drag the map to navigate
+        </div>
     </div>
 
 </body>
